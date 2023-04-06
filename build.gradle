@@ -1,28 +1,29 @@
 plugins {
 	id 'java'
 	id 'war'
-	id 'org.springframework.boot' version '2.7.9'
+	id 'org.springframework.boot' version '2.7.8'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
-group = 'io.cloudtype'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
-
-repositories {
-	mavenCentral()
+war {
+	archiveBaseName.set('SolpongeApplication')
+	archiveVersion.set('0.0.1-SNAPSHOT')
+	archiveClassifier.set('')
+	archiveExtension.set('war')
 }
+
+group = 'com'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
 
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
 }
-apply plugin: 'war'
 
-bootWar {
-	archiveFileName = 'ROOT.war'
+repositories {
+	mavenCentral()
 }
 
 dependencies {
@@ -57,6 +58,6 @@ dependencies {
 }
 
 
-tasks.named('test') {
-	useJUnitPlatform()
+tasks.named('bootWar') {
+	dependsOn 'build'
 }
